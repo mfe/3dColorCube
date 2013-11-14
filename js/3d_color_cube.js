@@ -9,7 +9,7 @@
 * corresponding input colors
 */
 function getIdentityCube() {
-    var cubeSize = 10,
+    var cubeSize = 32,
         maxValue = cubeSize - 1.0,
         redValues = [],
         greenValues = [],
