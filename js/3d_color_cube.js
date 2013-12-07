@@ -3,50 +3,6 @@
  * @author mfe / https://github.com/mfe
  */
 
-/**
-* Get identity cube values (test purpose) 
-* @return {object datacube} Return cubsize, red, green, blue values and 
-* corresponding input colors
-*/
-function getIdentityCube() {
-    var cubeSize = 32,
-        maxValue = cubeSize - 1.0,
-        redValues = [],
-        greenValues = [],
-        blueValues = [],
-        inputColors = [],
-        r,
-        g,
-        b,
-        normR,
-        normG,
-        normB;
-    for (r = 0; r < cubeSize; r += 1) {
-        for (g = 0; g < cubeSize; g += 1) {
-            for (b = 0; b < cubeSize; b += 1) {
-                normR = r / maxValue;
-                normG = g / maxValue;
-                normB = b / maxValue;
-                redValues.push(normR);
-                greenValues.push(normG);
-                blueValues.push(normB);
-                inputColors.push({
-                    r: normR,
-                    g: normG,
-                    b: normB
-                });
-            }
-        }
-    }
-    return {
-        cubeSize: cubeSize,
-        redValues: redValues,
-        greenValues: greenValues,
-        blueValues: blueValues,
-        inputColors: inputColors
-    };
-}
-
 var controls,
     renderer,
     camera,
