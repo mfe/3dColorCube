@@ -50,7 +50,10 @@ function getIdentityCube() {
 var controls,
     renderer,
     camera,
-    scene;
+    scene,
+    RED_INDEX=0,
+    GREEN_INDEX=1,
+    BLUE_INDEX=2;
 
 /**
 * Set triangle coords in BufferGeometry arrays
@@ -221,9 +224,9 @@ function createBufferGeometry(datacube) {
     colors = geometry.attributes.color.array;
 
     for (i = 0; i < datacube.redValues.length; i += 1) {
-        color.r = datacube.inputColors[i].r;
-        color.g = datacube.inputColors[i].g;
-        color.b = datacube.inputColors[i].b;
+        color.r = datacube.inputColors[i][RED_INDEX];
+        color.g = datacube.inputColors[i][GREEN_INDEX];
+        color.b = datacube.inputColors[i][BLUE_INDEX];
         x = datacube.redValues[i];
         y = datacube.greenValues[i];
         z = datacube.blueValues[i];
@@ -359,14 +362,30 @@ function animate() {
     update();
 }
 
+/**
+* Convert key names into js naming convention
+* @params {object datacube}
+*/
+function convertNames(datacube) {
+    return {
+        cubeSize: datacube.cubesize,
+        redValues: datacube.red_values,
+        greenValues: datacube.green_values,
+        blueValues: datacube.blue_values,
+        inputColors: datacube.input_colors
+    };
+}
+
 /** 
 * Main function
 * @params {object datacube}
 */
 function displayCube(datacube) {
+    // convert json datacube naming into js naming
+    datacube = convertNames(datacube)
     initGL(datacube);
     animate();
 }
 
 // Display identity cube
-displayCube(getIdentityCube());
+$.getJSON('json/color_transformation_32.json', displayCube);
