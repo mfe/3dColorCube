@@ -254,6 +254,31 @@ function addGLCube(datacube) {
 }
 
 /** 
+* Draw a color line
+* @params {THREE.Vector3 start} start point
+* @params {THREE.Vector3 end} end point
+* @params {color color} line color
+*/
+function drawColorLine(start, end, color){
+    var line,
+        lineGeometry = new THREE.Geometry(),
+        lineMat = new THREE.LineBasicMaterial({color: color, lineWidth: 1});
+    lineGeometry.vertices.push(start, end);
+    line = new THREE.Line(lineGeometry, lineMat);
+    scene.add(line);
+}
+
+/**
+* Draw RGB Axis
+*/
+function drawRGBAxis(){
+    size = 1 - offset;
+    drawColorLine(new THREE.Vector3(-size, -offset, -offset), new THREE.Vector3(size, -offset, -offset), 0xFF0000);
+    drawColorLine(new THREE.Vector3(-offset, -size, -offset), new THREE.Vector3(-offset, size, -offset), 0x00FF00);
+    drawColorLine(new THREE.Vector3(-offset, -offset, -size), new THREE.Vector3(-offset, -offset, size), 0x0000FF);
+}
+
+/** 
 * Add init GL scene
 * @params {object datacube}
 */
@@ -301,6 +326,9 @@ function initGL(datacube) {
 
     // add light to the scene
     scene.add(new THREE.HemisphereLight());
+
+    // draw axis
+    drawRGBAxis();
 
 }
 
