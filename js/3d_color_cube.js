@@ -9,7 +9,8 @@ var controls,
     scene,
     RED_INDEX=0,
     GREEN_INDEX=1,
-    BLUE_INDEX=2;
+    BLUE_INDEX=2,
+    offset=0.5;
 
 /**
 * Set triangle coords in BufferGeometry arrays
@@ -178,14 +179,13 @@ function createBufferGeometry(datacube) {
     positions = geometry.attributes.position.array;
     normals = geometry.attributes.normal.array;
     colors = geometry.attributes.color.array;
-
     for (i = 0; i < datacube.redValues.length; i += 1) {
         color.r = datacube.inputColors[i][RED_INDEX];
         color.g = datacube.inputColors[i][GREEN_INDEX];
         color.b = datacube.inputColors[i][BLUE_INDEX];
-        x = datacube.redValues[i];
-        y = datacube.greenValues[i];
-        z = datacube.blueValues[i];
+        x = datacube.redValues[i] - offset;
+        y = datacube.greenValues[i] - offset;
+        z = datacube.blueValues[i] - offset;
         j = i * 12;
         // quad 1
         addTriangle(j, x, y, z, vertex1, vertex2, vertex3, color, positions, normals, colors);
